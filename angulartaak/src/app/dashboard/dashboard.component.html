@@ -1,0 +1,113 @@
+<div class="container marginContainer">
+    <h2 class="text-center"> Dashboard van
+        {{gebruiker?.gebruikersnaam.charAt(0).toUpperCase() + gebruiker?.gebruikersnaam.slice(1)}}</h2>
+    <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white titel">
+        {{titel}}
+        <div class="header">
+            <button *ngIf="titel != 'Lijsten waarop jij hebt gestemd'" type="button" class="btn btn-block text-white buttonHead"
+                (click)="nieuw()">Nieuwe
+                Lijst</button>
+            <button *ngIf="titel != 'Lijsten waarop jij hebt gestemd'" type="button" class="btn btn-block text-white buttonHead"
+                (click)="getStemLijsten()">Mijn
+                stemmen</button>
+        </div>
+        <button *ngIf="titel == 'Lijsten waarop jij hebt gestemd'" type="button" class="btn btn-block text-white buttonMijnLijst"
+            (click)="getLijsten()">Mijn Lijsten</button>
+    </li>
+    <ul class="list-group" *ngFor="let lijst of lijsten">
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+            {{lijst.naam}}
+            <span class="spanS">
+                <span *ngIf="!mijnLijst" class="info" style="font-size: medium;">{{lijst.actief == true ? 'Actief' : 'Inactief'}}</span>
+                <button class="btn text-white buttonS" (click)="status(lijst)" *ngIf="mijnLijst">
+                    {{lijst.actief == true ? 'Actief' : 'Inactief'}}
+                </button>
+                <i class="fa fa-info-circle info" data-toggle="modal" [attr.data-target]="'#info' + lijst.lijstID"></i>
+                <i *ngIf="mijnLijst" class="fa fa-plus add" data-toggle="modal" [attr.data-target]="'#nieuw' + lijst.lijstID"></i>
+            </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of lijst.items">
+            <img src="{{item.foto}}" width="64" /> {{item.naam}}
+            <span class="badge badge-dark badge-pill badgeOpmaak"><i class="fa fa-eye detail" data-toggle="modal"
+                    [attr.data-target]="'#i' + item.itemID"></i>
+                    <i class="fa fa-thumbs-up" (click)="vote(item)" [ngStyle]="{'color': item.gestemd ? '#1cd654' : '#ffffff'}"></i>
+                {{item?.stemmen?.length}}</span>
+        </li>
+    </ul>
+</div>
+
+<div *ngFor="let lijst of lijsten">
+    <div *ngFor="let item of lijst.items" class="modal fade" [id]="'i' + item.itemID">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">{{item.naam}}</h5>
+                </div>
+                <div class="modal-body d-flex bg-dark text-white">
+                    <img src="{{item.foto}}" width="40%" class="imgOpmaak"/>
+                    <span>
+                        <h4>Beschrijving</h4>{{item.beschrijving}}
+                    </span>
+                </div>
+                <div class="modal-footer bg-dark text-white">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let lijst of lijsten">
+    <div class="modal fade" [id]="'nieuw' + lijst.lijstID">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Nieuw item voor "{{lijst.naam}}".</h5>
+                </div>
+                <div class="modal-body d-flex bg-dark text-white">
+                    <form class="bg-dark formS">
+                        <div class="form-group">
+                            <input type="text" class="form-control bg-dark text-white" placeholder="Naam" required
+                                [(ngModel)]="naam" name="naam">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control bg-dark text-white" name="beschrijving"
+                                placeholder="Beschrijving" [(ngModel)]="beschrijving" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageInput" class="labelS">Foto</label>
+                            <input #imageInput type="file" accept="image/*">
+                        </div>
+                        <p *ngIf="melding" class="text-center foutMelding">{{meldingS}}</p>
+                        <p *ngIf="!fotoValidate" class="text-center foutMelding">
+                            De foto is te groot!
+                        </p>
+                    </form>
+                </div>
+                <div class="modal-footer bg-dark text-white">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"
+                        (click)="nieuwItem(lijst, imageInput)">Toevoegen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let lijst of lijsten">
+    <div class="modal fade" [id]="'info' + lijst.lijstID">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Beschrijving van "{{lijst.naam}}".</h5>
+                </div>
+                <div class="modal-body d-flex bg-dark text-white">
+                    {{lijst.beschrijving}}
+                </div>
+                <div class="modal-footer bg-dark text-white">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="container marginContainer">
+    <div class="d-flex form-group">
+        <input type="text" class="form-control" placeholder="Zoek tussen lijsten" [(ngModel)]="zoeken" name="password">
+        <button type="button" class="bg-dark btn btn-block text-white buttonWidth" (click)="filter()">Zoek</button>
+    </div>
+    <ul class="list-group" *ngFor="let lijst of lijsten">
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white text-center">
+            {{lijst.naam}}
+            <span>
+                {{lijst.actief == true ? 'Actief' : 'Inactief'}}
+                <i class="fa fa-info-circle info" data-toggle="modal" [attr.data-target]="'#info' + lijst.lijstID"></i>
+            </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of lijst.items">
+            <img src="{{item.foto}}" width="64" /> {{item.naam}}
+            <span class="badge badge-dark badge-pill badgeOpmaak"><i class="fa fa-eye detail" data-toggle="modal"
+                    [attr.data-target]="'#i' + item.itemID"></i>
+                    <i class="fa fa-thumbs-up" (click)="vote(item)" [ngStyle]="{'color': item.gestemd ? '#1cd654' : '#ffffff'}"></i>
+                {{item?.stemmen?.length}}</span>
+        </li>
+    </ul>
+</div>
+
+<div *ngFor="let lijst of lijsten">
+    <div *ngFor="let item of lijst.items" class="modal fade" [id]="'i' + item.itemID">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">{{item.naam}}</h5>
+                </div>
+                <div class="modal-body d-flex bg-dark text-white">
+                    <img src="{{item.foto}}" width="40%" class="imgOpmaak"/>
+                    <span><h4>Beschrijving</h4>{{item.beschrijving}}</span>
+                </div>
+                <div class="modal-footer bg-dark text-white">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let lijst of lijsten">
+    <div class="modal fade" [id]="'info' + lijst.lijstID">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Beschrijving van "{{lijst.naam}}".</h5>
+                </div>
+                <div class="modal-body d-flex bg-dark text-white">
+                    {{lijst.beschrijving}}
+                </div>
+                <div class="modal-footer bg-dark text-white">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

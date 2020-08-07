@@ -1,0 +1,22 @@
+<div class="login-form bg-dark">
+    <form class="bg-dark" (ngSubmit)="onSubmit()">
+        <h2 class="text-center text-white">Registreer</h2>
+        <div class="form-group">
+            <input type="text" class="form-control bg-dark text-white" placeholder="Naam" required [(ngModel)]="username" name="username">
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control bg-dark text-white" placeholder="E-mail" required [(ngModel)]="email" name="email">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control bg-dark text-white" placeholder="Wachtwoord" required [(ngModel)]="password" name="password">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control bg-dark text-white" placeholder="Bevestig wachtwoord" required [(ngModel)]="confirmPassword" name="password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="bg-dark btn btn-block text-white">Registreer</button>
+        </div>
+        <p *ngIf="melding" class="text-center foutMelding">{{meldingS}}</p>
+        <p *ngIf="pwdDiff" class="text-center foutMelding">Wachtwoorden komen niet overeen.</p>
+    </form>
+</div>

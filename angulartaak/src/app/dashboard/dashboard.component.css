@@ -1,0 +1,67 @@
+.marginContainer {
+    margin-top: 10px;
+}
+
+.foutMelding {
+    color: rgb(190, 56, 56);
+}
+
+.info {
+    margin-left: 10px; font-size: larger;
+}
+
+.labelS {
+    margin-right: 5px;
+}
+
+.formS {
+    width: 100%;
+}
+
+.detail {
+    margin-right: 5px;
+}
+
+.badgeOpmaak {
+    font-size: large;
+}
+
+.imgOpmaak {
+    margin-right: 10px;
+}
+
+.spanS {
+    font-size: large;
+}
+
+.buttonS {
+    background-color: rgb(94, 92, 92); 
+}
+
+.add {
+    font-size: larger;
+}
+
+.info {
+    margin-right: 5px; 
+    font-size: larger;
+}
+
+.buttonHead {
+    background-color: rgb(94, 92, 92); 
+    display: inline-block;
+}
+
+.buttonMijnLijst {
+    width: 22%; 
+    background-color: rgb(94, 92, 92);
+}
+
+.header {
+    height: 84px;
+}
+
+.titel {
+    margin-bottom: 10px; 
+    font-size: larger;
+}

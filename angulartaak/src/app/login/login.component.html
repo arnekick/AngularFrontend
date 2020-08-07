@@ -1,0 +1,15 @@
+<div class="login-form bg-dark">
+    <form class="bg-dark" (ngSubmit)="onSubmit()">
+        <h2 class="text-center text-white">Login</h2>
+        <div class="form-group">
+            <input type="text" class="form-control bg-dark text-white" placeholder="E-mail" required="required" [(ngModel)]="email" name="email">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control bg-dark text-white" placeholder="Wachtwoord" required="required" [(ngModel)]="password" name="password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="bg-dark btn btn-block text-white">Login</button>
+        </div>
+        <p *ngIf="melding" class="text-center foutMelding">{{meldingS}}</p>
+    </form>
+</div>

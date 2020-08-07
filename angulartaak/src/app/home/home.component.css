@@ -1,0 +1,23 @@
+.marginContainer {
+    margin-top: 10px;
+}
+
+.buttonWidth {
+    width: 25%;
+}
+
+.info {
+    margin-left: 10px; font-size: larger;
+}
+
+.detail {
+    margin-right: 5px;
+}
+
+.badgeOpmaak {
+    font-size: large;
+}
+
+.imgOpmaak {
+    margin-right: 10px;
+}
